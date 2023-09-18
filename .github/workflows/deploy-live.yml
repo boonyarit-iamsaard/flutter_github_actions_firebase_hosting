@@ -12,7 +12,7 @@ on:
       - main
 
 jobs:
-  build_and_deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,6 +27,10 @@ jobs:
       - run: flutter pub get
       - run: flutter build web --release
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'

@@ -12,7 +12,7 @@ on:
       - develop
 
 jobs:
-  build_and_deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,12 +27,15 @@ jobs:
       - run: flutter pub get
       - run: flutter build web --release
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FLUTTER_GITHUB_ACTIONS_A162F }}'
-          channelId: live
           projectId: flutter-github-actions-a162f
         env:
-          FIREBASE_CLI_PREVIEWS: hostingchannels
           FIREBASE_CLI_EXPERIMENTS: webframeworks
