@@ -35,3 +35,4 @@ jobs:
           projectId: flutter-github-actions-a162f
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
